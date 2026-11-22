@@ -1,101 +1,42 @@
-/* =========================================================
-   MINI ARCADE — AESTHETIC UI THEME
-   Palette: yellow • green • purple • pink • black • white • blue
-
-   NOTE:
-   Your current HTML draws the arcade interface INSIDE <canvas>.
-   CSS can style the page/canvas itself, but it cannot directly
-   style text/buttons that are drawn with CanvasRenderingContext2D.
-   This file adds the surrounding visual polish, cursor effects,
-   animated canvas glow, and responsive presentation.
-   ========================================================= */
+/* Ruem's Arcade — cotton-candy Sanrio UI over the arcade room. */
 
 :root {
-  --black: #05050a;
-  --black-soft: #0b0b14;
-  --white: #ffffff;
-  --yellow: #ffd43b;
-  --yellow-soft: #fff3a6;
-  --green: #4ade80;
-  --green-soft: #a7f3d0;
-  --purple: #a855f7;
-  --purple-dark: #5b21b6;
-  --pink: #ff4fa3;
-  --pink-soft: #ff9ed1;
-  --blue: #38bdf8;
-  --blue-deep: #2563eb;
-
-  --glow-yellow: 0 0 18px rgba(255, 212, 59, .55),
-                 0 0 42px rgba(255, 212, 59, .18);
-  --glow-purple: 0 0 18px rgba(168, 85, 247, .55),
-                 0 0 42px rgba(168, 85, 247, .20);
-  --glow-pink: 0 0 18px rgba(255, 79, 163, .55),
-               0 0 42px rgba(255, 79, 163, .18);
-  --glow-blue: 0 0 18px rgba(56, 189, 248, .55),
-               0 0 42px rgba(56, 189, 248, .18);
+  --plum: #38283F;
+  --cotton: #F4D9EE;
+  --bubblegum: #DCA6E9;
+  --ruem-red: #E94E70;
+  --butter: #FFD66E;
+  --vanilla: #FFF5E9;
 }
-
-/* ---------- PAGE ---------- */
 
 html,
 body {
   margin: 0;
   width: 100%;
   height: 100%;
+  height: 100dvh;
   overflow: hidden;
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, .018) 0,
-      transparent 32%
-    ),
-    radial-gradient(
-      ellipse at 50% 115%,
-      rgba(56, 189, 248, .14) 0,
-      transparent 34%
-    ),
-    radial-gradient(circle at 18% 20%,
-      rgba(168, 85, 247, .18) 0,
-      transparent 28%),
-    radial-gradient(circle at 82% 18%,
-      rgba(255, 79, 163, .15) 0,
-      transparent 27%),
-    radial-gradient(circle at 50% 90%,
-      rgba(56, 189, 248, .12) 0,
-      transparent 35%),
-    linear-gradient(145deg, #090711 0%, #05050a 48%, #07101b 100%);
-
-  color: var(--white);
-
-  font-family:
-    Inter,
-    ui-sans-serif,
-    system-ui,
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    sans-serif;
-
+  background-color: var(--cotton);
+  background-image: url("assets/arcade-room.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--plum);
+  font-family: Fredoka, "Segoe UI", ui-rounded, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-
-/* ---------- CANVAS ---------- */
 
 canvas {
   display: block;
   position: relative;
   z-index: 1;
-
   width: 100vw;
   height: 100vh;
-
+  height: 100dvh;
   image-rendering: auto;
-
   cursor: none;
-
-  animation: canvasBreath 5s ease-in-out infinite;
+  background: transparent;
 }
 
 canvas[hidden] {
@@ -115,548 +56,120 @@ canvas[hidden] {
   display: none;
 }
 
-/* Soft animated atmospheric glow over the whole arcade */
 body::before {
   content: "";
   position: fixed;
-  inset: -20%;
+  inset: 0;
   pointer-events: none;
   z-index: 2;
-}
-
-body::before {
   background:
-    linear-gradient(
-      rgba(56, 189, 248, .025) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(56, 189, 248, .025) 1px,
-      transparent 1px
-    ),
-    radial-gradient(
-      circle at 30% 35%,
-      rgba(168, 85, 247, .08),
-      transparent 24%
-    ),
-    radial-gradient(
-      circle at 70% 60%,
-      rgba(255, 79, 163, .07),
-      transparent 24%
-    ),
-    radial-gradient(
-      circle at 50% 10%,
-      rgba(255, 212, 59, .05),
-      transparent 20%
-    );
-  background-size: 64px 64px, 64px 64px, auto, auto, auto;
-  -webkit-mask-image: radial-gradient(
-    ellipse at 50% 50%,
-    transparent 20%,
-    rgba(0, 0, 0, .35) 58%,
-    #000 100%
-  );
-  mask-image: radial-gradient(
-    ellipse at 50% 50%,
-    transparent 20%,
-    rgba(0, 0, 0, .35) 58%,
-    #000 100%
-  );
-
-  animation: ambientFloat 12s ease-in-out infinite alternate;
+    radial-gradient(ellipse at 50% 18%, rgba(255, 245, 233, .18), transparent 42%),
+    radial-gradient(ellipse at 50% 100%, rgba(56, 40, 63, .12), transparent 46%);
 }
-
-/* ---------- POINTER / CURSOR TRAIL ---------- */
 
 .cursor-dot {
   position: fixed;
-  width: 7px;
-  height: 7px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-
-  background: var(--yellow);
-
+  background: var(--butter);
   box-shadow:
-    0 0 8px var(--yellow),
-    0 0 20px var(--pink),
-    0 0 35px var(--purple);
-
+    0 0 0 3px var(--vanilla),
+    0 0 0 5px var(--plum),
+    0 6px 14px rgba(56, 40, 63, .22);
   transform: translate(-50%, -50%);
-  mix-blend-mode: screen;
-
-  animation: cursorPulse .65s ease-in-out infinite;
 }
 
 .cursor-dot.is-hovering {
-  width: 5px;
-  height: 5px;
-  background: var(--pink-soft);
-  box-shadow:
-    0 0 12px var(--pink),
-    0 0 28px var(--purple);
-  transition: width .09s ease, height .09s ease, background .09s ease;
+  width: 8px;
+  height: 8px;
+  background: var(--ruem-red);
 }
 
 .cursor-dot.is-clicking {
-  transform: translate(-50%, -50%) scale(.55);
-  background: #fff;
-  transition: transform .08s ease;
+  transform: translate(-50%, -50%) scale(.7);
 }
 
-/* If you later create these elements in JS, they automatically animate. */
 .cursor-ring {
   position: fixed;
-  width: 32px;
-  height: 32px;
-  border: 1px solid rgba(255, 255, 255, .65);
+  width: 34px;
+  height: 34px;
+  border: 3px solid var(--plum);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-
   transform: translate(-50%, -50%);
-
-  box-shadow:
-    0 0 12px rgba(56, 189, 248, .45),
-    inset 0 0 12px rgba(168, 85, 247, .25);
-
-  transition:
-    width .10s ease,
-    height .10s ease,
-    border-color .10s ease,
-    box-shadow .10s ease;
+  background: rgba(255, 245, 233, .18);
+  box-shadow: 0 0 0 3px rgba(255, 214, 110, .45);
+  transition: width .1s ease, height .1s ease, border-color .1s ease;
 }
 
-.cursor-ring.is-hovering,
-.cursor-ring:hover {
-  width: 45px;
-  height: 45px;
-  border-color: var(--pink);
-
-  box-shadow:
-    0 0 18px rgba(255, 79, 163, .65),
-    0 0 35px rgba(168, 85, 247, .35);
+.cursor-ring.is-hovering {
+  width: 46px;
+  height: 46px;
+  border-color: var(--ruem-red);
 }
 
 .cursor-ring.is-clicking {
   width: 24px;
   height: 24px;
-  border-width: 2px;
-  border-color: #fff;
-  box-shadow:
-    0 0 15px var(--yellow),
-    0 0 32px var(--pink);
+  border-color: var(--butter);
 }
-
-/* ---------- OPTIONAL HTML UI PANELS ---------- */
 
 .arcade-panel {
   position: relative;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(11, 11, 20, .94),
-      rgba(21, 13, 39, .90)
-    );
-
-  border: 1px solid rgba(255, 255, 255, .12);
-  border-radius: 18px;
-
-  box-shadow:
-    0 18px 60px rgba(0, 0, 0, .45),
-    0 0 30px rgba(168, 85, 247, .12);
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-
+  background: rgba(255, 245, 233, .92);
+  border: 3px solid var(--plum);
+  border-radius: 24px;
+  box-shadow: 0 10px 0 rgba(56, 40, 63, .18);
   overflow: hidden;
 }
-
-.arcade-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  background:
-    linear-gradient(
-      115deg,
-      transparent 15%,
-      rgba(255, 255, 255, .08) 50%,
-      transparent 85%
-    );
-
-  transform: translateX(-120%);
-  animation: panelShine 5s ease-in-out infinite;
-
-  pointer-events: none;
-}
-
-/* ---------- AESTHETIC BUTTONS ---------- */
 
 .arcade-button {
   position: relative;
-
-  padding: 12px 22px;
-
-  color: var(--white);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(168, 85, 247, .95),
-      rgba(37, 99, 235, .95)
-    );
-
-  border: 1px solid rgba(255, 255, 255, .20);
-  border-radius: 12px;
-
+  padding: 12px 24px;
+  color: var(--plum);
+  background: linear-gradient(#fffdf8, var(--vanilla));
+  border: 3px solid var(--plum);
+  border-radius: 999px;
   font: inherit;
-  font-weight: 800;
-  letter-spacing: .03em;
-
+  font-weight: 700;
+  letter-spacing: .04em;
   cursor: pointer;
-
-  box-shadow:
-    0 8px 25px rgba(37, 99, 235, .25),
-    0 0 18px rgba(168, 85, 247, .20);
-
-  transition:
-    transform .18s ease,
-    box-shadow .18s ease,
-    filter .18s ease;
+  box-shadow: 0 5px 0 var(--plum);
 }
 
 .arcade-button:hover {
-  transform: translateY(-3px) scale(1.025);
-
-  filter: brightness(1.12);
-
-  box-shadow:
-    0 12px 35px rgba(37, 99, 235, .35),
-    0 0 24px rgba(168, 85, 247, .40),
-    0 0 45px rgba(255, 79, 163, .18);
+  transform: translateY(-2px);
+  background: linear-gradient(#fff7c8, var(--butter));
 }
 
 .arcade-button:active {
-  transform: translateY(1px) scale(.98);
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--plum);
 }
 
 .arcade-button.yellow {
-  background: linear-gradient(135deg, #ffd43b, #f59e0b);
-  color: #09090b;
-  box-shadow: var(--glow-yellow);
-}
-
-.arcade-button.green {
-  background: linear-gradient(135deg, #4ade80, #16a34a);
-  color: #03120a;
-  box-shadow: 0 0 20px rgba(74, 222, 128, .35);
+  background: linear-gradient(#ffe38a, var(--butter));
 }
 
 .arcade-button.pink {
-  background: linear-gradient(135deg, #ff4fa3, #ec4899);
-  box-shadow: var(--glow-pink);
+  background: linear-gradient(#f0c4f6, var(--bubblegum));
 }
 
-.arcade-button.blue {
-  background: linear-gradient(135deg, #38bdf8, #2563eb);
-  box-shadow: var(--glow-blue);
+.arcade-button.red {
+  background: linear-gradient(#f27590, var(--ruem-red));
+  color: var(--vanilla);
 }
-
-.arcade-button.purple {
-  background: linear-gradient(135deg, #c084fc, #7e22ce);
-  box-shadow: var(--glow-purple);
-}
-
-/* ---------- HOVER LIFT ---------- */
-
-.hover-lift {
-  transition:
-    transform .22s cubic-bezier(.2,.8,.2,1),
-    box-shadow .22s ease;
-}
-
-.hover-lift:hover {
-  transform:
-    translateY(-6px)
-    rotateX(2deg)
-    rotateY(-2deg);
-
-  box-shadow:
-    0 18px 50px rgba(0, 0, 0, .35),
-    0 0 28px rgba(168, 85, 247, .18);
-}
-
-/* ---------- COLORFUL TEXT ---------- */
-
-.gradient-text {
-  color: transparent;
-
-  background:
-    linear-gradient(
-      90deg,
-      var(--yellow),
-      var(--pink),
-      var(--purple),
-      var(--blue),
-      var(--green)
-    );
-
-  background-size: 300% 100%;
-  background-clip: text;
-  -webkit-background-clip: text;
-
-  animation: rainbowText 5s linear infinite;
-}
-
-.glow-text {
-  text-shadow:
-    0 0 8px currentColor,
-    0 0 22px currentColor;
-}
-
-/* ---------- GAME CARD ---------- */
-
-.game-card {
-  position: relative;
-
-  border: 1px solid rgba(255, 255, 255, .10);
-  border-radius: 16px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.07),
-      rgba(255,255,255,.025)
-    );
-
-  overflow: hidden;
-
-  transition:
-    transform .25s cubic-bezier(.2,.8,.2,1),
-    border-color .25s ease,
-    box-shadow .25s ease;
-}
-
-.game-card::after {
-  content: "";
-
-  position: absolute;
-  left: -100%;
-  top: 0;
-
-  width: 55%;
-  height: 100%;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.12),
-      transparent
-    );
-
-  transform: skewX(-20deg);
-
-  transition: left .6s ease;
-
-  pointer-events: none;
-}
-
-.game-card:hover {
-  transform: translateY(-8px) scale(1.02);
-
-  border-color: rgba(255,255,255,.28);
-
-  box-shadow:
-    0 15px 45px rgba(0,0,0,.4),
-    0 0 30px rgba(168,85,247,.18);
-}
-
-.game-card:hover::after {
-  left: 150%;
-}
-
-/* ---------- PET / CHARACTER ---------- */
-
-.pet {
-  animation:
-    petFloat 2.8s ease-in-out infinite,
-    petGlow 3s ease-in-out infinite;
-}
-
-.pet:hover {
-  animation:
-    petExcited .45s ease-in-out infinite alternate,
-    petGlow .8s ease-in-out infinite;
-  cursor: pointer;
-}
-
-@keyframes petFloat {
-  0%, 100% {
-    transform: translateY(0) rotate(-1deg);
-  }
-
-  50% {
-    transform: translateY(-9px) rotate(1deg);
-  }
-}
-
-@keyframes petExcited {
-  from {
-    transform: translateY(-2px) rotate(-5deg) scale(1);
-  }
-
-  to {
-    transform: translateY(-10px) rotate(5deg) scale(1.06);
-  }
-}
-
-@keyframes petGlow {
-  0%, 100% {
-    filter:
-      drop-shadow(0 0 8px rgba(74,222,128,.35));
-  }
-
-  50% {
-    filter:
-      drop-shadow(0 0 22px rgba(56,189,248,.65))
-      drop-shadow(0 0 35px rgba(168,85,247,.25));
-  }
-}
-
-/* ---------- LOADING / READY ---------- */
-
-.pulse {
-  animation: pulse 1.6s ease-in-out infinite;
-}
-
-.bounce {
-  animation: bounce 1.8s ease-in-out infinite;
-}
-
-.shake-on-hover:hover {
-  animation: shake .35s ease-in-out;
-}
-
-/* ---------- ANIMATIONS ---------- */
-
-@keyframes canvasBreath {
-  0%, 100% {
-    filter:
-      brightness(.98)
-      saturate(1);
-  }
-
-  50% {
-    filter:
-      brightness(1.03)
-      saturate(1.08);
-  }
-}
-
-@keyframes ambientFloat {
-  0% {
-    transform: translate3d(-2%, -1%, 0) scale(1);
-  }
-
-  50% {
-    transform: translate3d(2%, 2%, 0) scale(1.04);
-  }
-
-  100% {
-    transform: translate3d(-1%, 1%, 0) scale(1.02);
-  }
-}
-
-@keyframes cursorPulse {
-  0%, 100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: .8;
-  }
-
-  50% {
-    transform: translate(-50%, -50%) scale(1.35);
-    opacity: 1;
-  }
-}
-
-@keyframes panelShine {
-  0%, 55% {
-    transform: translateX(-120%);
-  }
-
-  75%, 100% {
-    transform: translateX(220%);
-  }
-}
-
-@keyframes rainbowText {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  100% {
-    background-position: 300% 50%;
-  }
-}
-
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: .85;
-  }
-
-  50% {
-    transform: scale(1.06);
-    opacity: 1;
-  }
-}
-
-@keyframes bounce {
-  0%, 100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-8px);
-  }
-}
-
-@keyframes shake {
-  0%, 100% {
-    transform: translateX(0);
-  }
-
-  25% {
-    transform: translateX(-4px) rotate(-1deg);
-  }
-
-  75% {
-    transform: translateX(4px) rotate(1deg);
-  }
-}
-
-/* ---------- MOBILE / SMALL WINDOWS ---------- */
 
 @media (max-width: 700px) {
   canvas {
     width: 100vw;
-    height: 100vh;
-  }
-
-  .arcade-panel {
-    border-radius: 14px;
-  }
-
-  .arcade-button {
-    padding: 10px 16px;
+    height: 100dvh;
   }
 }
-
-/* ---------- ACCESSIBILITY ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   *,
